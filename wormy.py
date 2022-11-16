@@ -6,6 +6,7 @@ Created on Wed Nov  9 19:02:09 2022
 """
 #Group Members
 # 21031491 Jeremy Koch, JK
+# 21015638 Sebastian Varon SV
 # Wormy (a Nibbles clone)
 # By Al Sweigart al@inventwithpython.com
 # http://inventwithpython.com/pygame
