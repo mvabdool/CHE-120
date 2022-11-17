@@ -69,19 +69,27 @@ def runGame():
     apple = getRandomLocation()
 
     while True: # main game loop
-        for event in pygame.event.get(): # event handling loop
+    # MA Loop that allows game to run
+        for event in pygame.event.get(): 
+        #MA loop handling events in game
             if event.type == QUIT:
+            # MA Loop that stops the game when the user quits
                 terminate()
             elif event.type == KEYDOWN:
                 if (event.key == K_LEFT or event.key == K_a) and direction != RIGHT:
+                # MA Worm moves right when right arrow or a-key clicked 
                     direction = LEFT
                 elif (event.key == K_RIGHT or event.key == K_d) and direction != LEFT:
+                # MA Worm moves right when right arrow or d-key clicked
                     direction = RIGHT
                 elif (event.key == K_UP or event.key == K_w) and direction != DOWN:
+                # MA Worm moves down when down arrow or w-key clicked
                     direction = UP
                 elif (event.key == K_DOWN or event.key == K_s) and direction != UP:
+                    # MA Worm moves up when up arrow or s-key clicked
                     direction = DOWN
                 elif event.key == K_ESCAPE:
+                # MA If you hit escape the game ends
                     terminate()
 
         # check if the worm has hit itself or the edge
