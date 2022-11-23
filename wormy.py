@@ -8,6 +8,7 @@ Created on Wed Nov  9 19:02:09 2022
 # 21031491 Jeremy Koch, JK
 # 21015638 Sebastian Varon SV
 # 21011162 Megan Abdool MA
+# 21030810 Madison Mercier MM
 # Wormy (a Nibbles clone)
 # By Al Sweigart al@inventwithpython.com
 # http://inventwithpython.com/pygame
