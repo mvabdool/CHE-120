@@ -92,21 +92,28 @@ def runGame():
                 # MA If you hit escape the game ends
                     terminate()
 
-        # check if the worm has hit itself or the edge
+        # MA check if the worm has hit an edge or run into itself
         if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELLWIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
+        # MA if worm hits any of the four edges, the game is finished 
             return # game over
         for wormBody in wormCoords[1:]:
+        # MA for loop repeats the action of the head of the worm for each unit of the body
+        # MA if any part of the head or body hits another part of the worm, the game is finished
             if wormBody['x'] == wormCoords[HEAD]['x'] and wormBody['y'] == wormCoords[HEAD]['y']:
                 return # game over
 
-        # check if worm has eaten an apply
+        # MA detecting when worm eats an apple 
         if wormCoords[HEAD]['x'] == apple['x'] and wormCoords[HEAD]['y'] == apple['y']:
             # don't remove worm's tail segment
-            apple = getRandomLocation() # set a new apple somewhere
+            apple = getRandomLocation() 
+            # MA set a new apple in a random location
         else:
-            del wormCoords[-1] # remove worm's tail segment
+            del wormCoords[-1] 
+            # MA remove worm's tail segment 
+            # MA this is how the worm continues to move while not continuously getting longer (only when it eats an apple)
 
-        # move the worm by adding a segment in the direction it is moving
+        # MA move the worm by adding a body length unit in the direction it is moving
+        # MA this doesn't cause the worm to grow longer because in if statements above, when the worm does not eat an apple it loses a unit of it's body from the back
         if direction == UP:
             newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] - 1}
         elif direction == DOWN:
@@ -116,6 +123,7 @@ def runGame():
         elif direction == RIGHT:
             newHead = {'x': wormCoords[HEAD]['x'] + 1, 'y': wormCoords[HEAD]['y']}
         wormCoords.insert(0, newHead)
+        # MA head of worm is replaced at the beginning of the list 
         DISPLAYSURF.fill(BGCOLOR)
         drawGrid()
         drawWorm(wormCoords)
