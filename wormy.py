@@ -190,57 +190,95 @@ def getRandomLocation():
     return {'x': random.randint(0, CELLWIDTH - 1), 'y': random.randint(0, CELLHEIGHT - 1)}
 
 
-def showGameOverScreen():
-    gameOverFont = pygame.font.Font('freesansbold.ttf', 150)
-    gameSurf = gameOverFont.render('Game', True, WHITE)
-    overSurf = gameOverFont.render('Over', True, WHITE)
-    gameRect = gameSurf.get_rect()
-    overRect = overSurf.get_rect()
-    gameRect.midtop = (WINDOWWIDTH / 2, 10)
-    overRect.midtop = (WINDOWWIDTH / 2, gameRect.height + 10 + 25)
+def showGameOverScreen(): #JK Defines function for game over screen when player dies.
+    gameOverFont = pygame.font.Font('freesansbold.ttf', 150) 
+    #JK Sets font for game over text to freesansbold and size 150.
+    gameSurf = gameOverFont.render('Game', True, WHITE) 
+    #JK Renders 'Game' in white text to the surface gameSurf.
+    overSurf = gameOverFont.render('Over', True, WHITE) 
+    #JK  Renders 'Over' in white text to surface overSurf.
+    gameRect = gameSurf.get_rect() 
+    #JK Assigns rect object with surface gameSurf to gameRect.
+    overRect = overSurf.get_rect() 
+    #JK Assigns rect object with surface overSurf to overRect.
+    gameRect.midtop = (WINDOWWIDTH / 2, 10) 
+    # JK Assigns size to the rect object gameRect.
+    overRect.midtop = (WINDOWWIDTH / 2, gameRect.height + 10 + 25) 
+    #JK Assigns size to rect object overRect.
 
-    DISPLAYSURF.blit(gameSurf, gameRect)
-    DISPLAYSURF.blit(overSurf, overRect)
-    drawPressKeyMsg()
+    DISPLAYSURF.blit(gameSurf, gameRect) 
+    #JK Displays 'Game' on screen in white with freesansbold font using gameSurf and gameRect.
+    DISPLAYSURF.blit(overSurf, overRect) 
+    #JK Displays 'Over' on screen in white with freesansbold font using overSurf and overRect.
+    drawPressKeyMsg() 
+    #JK calls function drawPressKeyMsg to draw 'Press a key to play' in the bottom right of the display surface object.
     pygame.display.update()
-    pygame.time.wait(500)
+    pygame.time.wait(500) 
+    #JK sets a timer of 500ms to prevent player from accidentally prompting the next game immediately after dying.
     checkForKeyPress() # clear out any key presses in the event queue
 
     while True:
-        if checkForKeyPress():
+        if checkForKeyPress(): 
+            #JK checkForKeyPress() is called to ignore all button presses from when showGameOverScreen() was called to prevent player
+            #from prompting new game accidentally.
             pygame.event.get() # clear event queue
             return
 
-def drawScore(score):
+def drawScore(score): 
+    #JK Defines function for displaying player's score (how many apples eaten) on the screen.
     scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
+    #JK Renders the player's score in white font to surface scoreSurf.
     scoreRect = scoreSurf.get_rect()
+    #JK Assigns a rect object with surface scoreSurf to scoreRect.
     scoreRect.topleft = (WINDOWWIDTH - 120, 10)
+    #JK Gives rect object scoreRect a size.
     DISPLAYSURF.blit(scoreSurf, scoreRect)
+    #JK Displays the player's score on the top right using scoreSurf and scoreRect.
 
 
 def drawWorm(wormCoords):
+    #JK Defines function for drawing the worm's body.
     for coord in wormCoords:
+        #JK loops through each of the dictionary values in wormCoords which all have an 'x' key and 'y' key.
+        #This is so when the worm grows, the drawing of the worm updates to match it's growth.
         x = coord['x'] * CELLSIZE
+        #JK Multiplies the coord['x'] coordinate by CELLSIZE to match worm's size to grid size.
         y = coord['y'] * CELLSIZE
+        #JK Multiplies the coord['y'] by the CELLSIZE to match worm's size to grid size.
         wormSegmentRect = pygame.Rect(x, y, CELLSIZE, CELLSIZE)
+        #JK Creates rect object for the worm segment called wormSegmentRect.
         pygame.draw.rect(DISPLAYSURF, DARKGREEN, wormSegmentRect)
+        #JK Draws dark green rectangle on the segment where the worm is. This is going to be the outline of each cell of the worm.
         wormInnerSegmentRect = pygame.Rect(x + 4, y + 4, CELLSIZE - 8, CELLSIZE - 8)
+        #JK Creates rect object for the smaller green rectangle which starts 4 pixels to the right and 4 pixels below
+        # the topleft corner of the cell.
+        
         pygame.draw.rect(DISPLAYSURF, GREEN, wormInnerSegmentRect)
+        #JK Draws a smaller bright green rectangle over the dark green rectangle to make the worm look nicer.
 
 
 def drawApple(coord):
+    #JK Defines function for drawing apple on screen.
     x = coord['x'] * CELLSIZE
+    #JK Multiples coord['x'] by CELLSIZE to match the size of the apple to the grid.
     y = coord['y'] * CELLSIZE
+    #JK Multiples coord['y'] by CELLSIZE to match the size of the apple to the grid.
     appleRect = pygame.Rect(x, y, CELLSIZE, CELLSIZE)
+    #JK Creates rect object for apple with size matching grid.
     pygame.draw.rect(DISPLAYSURF, RED, appleRect)
+    #JK Passes appleRect to pygame.draw.rect() function where an apple gets drawn in red.
 
 
 def drawGrid():
+    #JK Defines function for drawing the grid on the screen.
     for x in range(0, WINDOWWIDTH, CELLSIZE): # draw vertical lines
         pygame.draw.line(DISPLAYSURF, DARKGRAY, (x, 0), (x, WINDOWHEIGHT))
+        #JK Draws vertical gridlines in darkgray.
     for y in range(0, WINDOWHEIGHT, CELLSIZE): # draw horizontal lines
         pygame.draw.line(DISPLAYSURF, DARKGRAY, (0, y), (WINDOWWIDTH, y))
+        #JK Draws horizontal gridlines in darkgray.
 
 
 if __name__ == '__main__':
     main()
+    #JK After all functions and constants and global variables are defined, main() is called to start game.
