@@ -18,13 +18,20 @@ import random, pygame, sys
 from pygame.locals import *
 
 FPS = 15
+#MM This is the frames per second of the game and how fast it runs. 
 WINDOWWIDTH = 640
+#MM This is the width of the window. 
 WINDOWHEIGHT = 480
+#MM This is the size of the entire window height. 
 CELLSIZE = 20
+#MM this is the general size of the cells.
 assert WINDOWWIDTH % CELLSIZE == 0, "Window width must be a multiple of cell size."
 assert WINDOWHEIGHT % CELLSIZE == 0, "Window height must be a multiple of cell size."
-CELLWIDTH = int(WINDOWWIDTH / CELLSIZE)
+#MM these assert statements create a ratio of cell height to cell width and makes it a whole number. 
+CELLWIDTH = int(WINDOWWIDTH / CELLSIZE) 
 CELLHEIGHT = int(WINDOWHEIGHT / CELLSIZE)
+#MM cell height and cell width are controlled by a ratio
+
 
 #             R    G    B
 WHITE     = (255, 255, 255)
@@ -33,20 +40,26 @@ RED       = (255,   0,   0)
 GREEN     = (  0, 255,   0)
 DARKGREEN = (  0, 155,   0)
 DARKGRAY  = ( 40,  40,  40)
-BGCOLOR = BLACK
 
+BGCOLOR = BLACK
+# These are the colours which will be used within the game. They are initalized at the begining of the code.
 UP = 'up'
 DOWN = 'down'
 LEFT = 'left'
 RIGHT = 'right'
+#MM This is setting up the directions of the worm in which it can move.
 
 HEAD = 0 # syntactic sugar: index of the worm's head
 
+# CHANGE CHANGE CHANGE 
+
 def main():
+    #This function is the first one of the project this is the 
     global FPSCLOCK, DISPLAYSURF, BASICFONT
 
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
+    #MM This initalizes the clock within the code and helps creates the frames per second.
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
     pygame.display.set_caption('Wormy')
