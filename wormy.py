@@ -40,6 +40,9 @@ RED       = (255,   0,   0)
 GREEN     = (  0, 255,   0)
 DARKGREEN = (  0, 155,   0)
 DARKGRAY  = ( 40,  40,  40)
+LIGHTBLUE = ( 135,206, 250)
+
+
 
 BGCOLOR = BLACK
 # These are the colours which will be used within the game. They are initalized at the begining of the code.
