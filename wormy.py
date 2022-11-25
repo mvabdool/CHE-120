@@ -57,20 +57,26 @@ HEAD = 0 # syntactic sugar: index of the worm's head
 # CHANGE CHANGE CHANGE 
 
 def main():
-    #This function is the first one of the project this is the 
+    #This function is the first one of the project this allows us to import it as a module without the entire code running. 
     global FPSCLOCK, DISPLAYSURF, BASICFONT
 
     pygame.init()
+    # Initalizes pygame
     FPSCLOCK = pygame.time.Clock()
     #MM This initalizes the clock within the code and helps creates the frames per second.
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+    #MM This is setting up the display of the screen ie using pygame to define what we set the window width and height to be previously
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
+    #MM This is defining what font the title will be in and also the size of the text
     pygame.display.set_caption('Wormy')
+    #MM Our title is set!
 
     showStartScreen()
     while True:
         runGame()
         showGameOverScreen()
+    #MM The four lines of code above run through the entire game. 
+    #MM It states that at the beginging the user will be shown the showStartScreen function then the game will run followed by the game over screen. 
 
 
 def runGame():
