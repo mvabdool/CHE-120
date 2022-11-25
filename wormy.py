@@ -88,6 +88,7 @@ def runGame():
 
     # Start the apple in a random place.
     apple = getRandomLocation()
+    Freeze = getRandomLocation()
 
     while True: # main game loop
     # MA Loop that allows game to run
@@ -123,11 +124,15 @@ def runGame():
             if wormBody['x'] == wormCoords[HEAD]['x'] and wormBody['y'] == wormCoords[HEAD]['y']:
                 return # game over
 
-        # MA detecting when worm eats an apple 
+        # MA detecting when worm eats an apple
         if wormCoords[HEAD]['x'] == apple['x'] and wormCoords[HEAD]['y'] == apple['y']:
             # don't remove worm's tail segment
             apple = getRandomLocation() 
             # MA set a new apple in a random location
+        elif wormCoords[HEAD]['x'] == Freeze['x'] and wormCoords[HEAD]['y'] == Freeze['y']:
+            del wormCoords[-2]
+            Freeze = getRandomLocation() 
+        #MM this means that if a worm hits a frozen apple two segments of its body will be removed as opposed to one
         else:
             del wormCoords[-1] 
             # MA remove worm's tail segment 
@@ -149,6 +154,7 @@ def runGame():
         drawGrid()
         drawWorm(wormCoords)
         drawApple(apple)
+        drawFreeze(Freeze)
         drawScore(len(wormCoords) - 3)
         pygame.display.update()
         FPSCLOCK.tick(FPS)
@@ -289,7 +295,17 @@ def drawApple(coord):
     pygame.draw.rect(DISPLAYSURF, RED, appleRect)
     #JK Passes appleRect to pygame.draw.rect() function where an apple gets drawn in red.
 
-
+def drawFreeze(coord):
+    #MM Defines function for drawing Frozen apple on screen.
+    x = coord['x'] * CELLSIZE
+    #MM Multiples coord['x'] by CELLSIZE to match the size of the frozen apple to the grid.
+    y = coord['y'] * CELLSIZE
+    #MM Multiples coord['y'] by CELLSIZE to match the size of the apple to the grid.
+    FreezeRect = pygame.Rect(x, y, CELLSIZE, CELLSIZE)
+    #MM Creates rect object for frozen apple with size matching grid.
+    pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, FreezeRect)
+    #JK Passes FreezeRect to pygame.draw.rect() function where an  frozen apple gets drawn in blue.
+    
 def drawGrid():
     #JK Defines function for drawing the grid on the screen.
     for x in range(0, WINDOWWIDTH, CELLSIZE): # draw vertical lines
