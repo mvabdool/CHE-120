@@ -92,6 +92,8 @@ def runGame():
 
     while True: # main game loop
     # MA Loop that allows game to run
+        if len(wormCoords)<=1:
+            return # game over
         for event in pygame.event.get(): 
         #MA loop handling events in game
             if event.type == QUIT:
@@ -113,6 +115,7 @@ def runGame():
                 elif event.key == K_ESCAPE:
                 # MA If you hit escape the game ends
                     terminate()
+  
 
         # MA check if the worm has hit an edge or run into itself
         if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELLWIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
@@ -124,13 +127,15 @@ def runGame():
             if wormBody['x'] == wormCoords[HEAD]['x'] and wormBody['y'] == wormCoords[HEAD]['y']:
                 return # game over
 
+
         # MA detecting when worm eats an apple
         if wormCoords[HEAD]['x'] == apple['x'] and wormCoords[HEAD]['y'] == apple['y']:
             # don't remove worm's tail segment
             apple = getRandomLocation() 
             # MA set a new apple in a random location
         elif wormCoords[HEAD]['x'] == Freeze['x'] and wormCoords[HEAD]['y'] == Freeze['y']:
-            del wormCoords[-2]
+            del wormCoords[-1]
+            del wormCoords[-1]
             Freeze = getRandomLocation() 
         #MM this means that if a worm hits a frozen apple two segments of its body will be removed as opposed to one
         else:
