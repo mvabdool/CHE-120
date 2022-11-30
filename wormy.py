@@ -165,7 +165,10 @@ def runGame():
         drawWorm(wormCoords)
         drawApple(apple)
         drawFreeze(Freeze)
-        drawScore(len(wormCoords) - 3)
+        if (len(wormCoords) - 3) <= 0:
+            drawScore(0)
+        else:
+            drawScore(len(wormCoords) - 3)
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
