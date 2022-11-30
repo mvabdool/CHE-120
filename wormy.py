@@ -146,54 +146,87 @@ def runGame():
         wormCoords.insert(0, newHead)
         # MA head of worm is replaced at the beginning of the list 
         DISPLAYSURF.fill(BGCOLOR)
+        # SV Fills screen with background colour
         drawGrid()
+        # SV draws the grid onto the game screen
         drawWorm(wormCoords)
+        # SV draws the worm onto the game screen
         drawApple(apple)
+        # SV draws the apple onto the gamne screen
         drawScore(len(wormCoords) - 3)
+        # SV draws the score onto the screen
         pygame.display.update()
+        # SV updates the screen to show all of the drawn objects
         FPSCLOCK.tick(FPS)
+        
 
 def drawPressKeyMsg():
     pressKeySurf = BASICFONT.render('Press a key to play.', True, DARKGRAY)
+    # SV message telling user to press a key to play 
     pressKeyRect = pressKeySurf.get_rect()
+    # SV creates a rectangle for the text 
     pressKeyRect.topleft = (WINDOWWIDTH - 200, WINDOWHEIGHT - 30)
+    # SV Alligns the text with the top left of the screen
+    
     DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
+    # SV displays the the text at the top left of the screen
 
 
 def checkForKeyPress():
     if len(pygame.event.get(QUIT)) > 0:
+        # SV calls the event.get function which will return a list of all the quit events in queue, the statment checks if there are any in queue
         terminate()
+        # SV if there are any quit events then the program will terminate
 
     keyUpEvents = pygame.event.get(KEYUP)
+    # SV returns a list of all the events in queue
     if len(keyUpEvents) == 0:
+        # SV if there are no events in queue the program does nothing
         return None
     if keyUpEvents[0].key == K_ESCAPE:
+        # SV checks if the escape key is pressed
         terminate()
+        # SV if the escape key is pressed the program is terminated
     return keyUpEvents[0].key
+    # SV if the event is anything else then the function returns the first event in the queue
 
 
 def showStartScreen():
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
+    # SV creates the font for the title on the start screen using the Font() method
     titleSurf1 = titleFont.render('Wormy!', True, WHITE, DARKGREEN)
     titleSurf2 = titleFont.render('Wormy!', True, GREEN)
+    # SV creates 2 different titles that display the text "Wormy!" with each one having a different colour using the render() method
 
     degrees1 = 0
     degrees2 = 0
+    # SV initializes the degree of rotation of the 2 titles
     while True:
         DISPLAYSURF.fill(BGCOLOR)
+        # SV fills the surface with the background colour
         rotatedSurf1 = pygame.transform.rotate(titleSurf1, degrees1)
+        # SV creates a new text that rotates the initial title by "degress1" which is initialized to be 0 
         rotatedRect1 = rotatedSurf1.get_rect()
+        # SV creates a rectangle for the rotated surface
         rotatedRect1.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
+        # SV places the rectangle in the middle of the screen
         DISPLAYSURF.blit(rotatedSurf1, rotatedRect1)
+        # SV displays the the title in the rectangle
 
         rotatedSurf2 = pygame.transform.rotate(titleSurf2, degrees2)
+         # SV creates a new text that rotates the initial title by "degress2" which is initialized to be 0 
         rotatedRect2 = rotatedSurf2.get_rect()
+        # SV creates a rectangle for the rotated surface
         rotatedRect2.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
+        # SV places the rectangle in the middle of the screen 
         DISPLAYSURF.blit(rotatedSurf2, rotatedRect2)
+        # SV displays the the title in the rectangle
 
         drawPressKeyMsg()
+        # SV calls the function to draw the message to press a key
 
         if checkForKeyPress():
+            # calls the function to check for a key press which will  
             pygame.event.get() # clear event queue
             return
         pygame.display.update()
