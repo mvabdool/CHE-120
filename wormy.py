@@ -226,22 +226,26 @@ def showStartScreen():
         # SV calls the function to draw the message to press a key
 
         if checkForKeyPress():
-            # calls the function to check for a key press which will  
+            # SV calls the function to check for a key press
             pygame.event.get() # clear event queue
             return
         pygame.display.update()
+        # SV updates the screen to display new title
         FPSCLOCK.tick(FPS)
         degrees1 += 3 # rotate by 3 degrees each frame
         degrees2 += 7 # rotate by 7 degrees each frame
+        # SV updates the degrees of rotation of the title
 
 
 def terminate():
     pygame.quit()
     sys.exit()
+    # SV shuts down the game and ends the program
 
 
 def getRandomLocation():
     return {'x': random.randint(0, CELLWIDTH - 1), 'y': random.randint(0, CELLHEIGHT - 1)}
+# SV gets random x and y coordinates
 
 
 def showGameOverScreen(): #JK Defines function for game over screen when player dies.
