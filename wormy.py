@@ -14,8 +14,16 @@ Created on Wed Nov  9 19:02:09 2022
 # http://inventwithpython.com/pygame
 # Released under a "Simplified BSD" license
 
+
 import random, pygame, sys
 from pygame.locals import *
+from pygame import mixer
+
+#Background Music
+mixer.init()
+mixer.music.load('Hotline Bling - Drake low quality.mp3')
+mixer.music.set_volume(1)
+mixer.music.play()
 
 FPS = 15
 #MM This is the frames per second of the game and how fast it runs. 
@@ -41,9 +49,12 @@ GREEN     = (  0, 255,   0)
 DARKGREEN = (  0, 155,   0)
 DARKGRAY  = ( 40,  40,  40)
 LIGHTBLUE = ( 135,206, 250)
+BLUE      = (  0,   0, 255)
+DARKYEL   = (139, 128,   0)
 BGCOLOR = BLACK
 # These are the colours which will be used within the game. They are initalized at the begining of the code.
-
+color = GREEN
+darkcolor = DARKGREEN
 UP = 'up'
 DOWN = 'down'
 LEFT = 'left'
@@ -76,7 +87,7 @@ def main():
     #MM The four lines of code above run through the entire game. 
     #MM It states that at the beginging the user will be shown the showStartScreen function then the game will run followed by the game over screen. 
 
-
+    
 def runGame():
     # Set a random start point.
     startx = random.randint(5, CELLWIDTH - 6)
@@ -88,7 +99,7 @@ def runGame():
 
     # Start the apple in a random place.
     apple = getRandomLocation()
-
+                
     while True: # main game loop
     # MA Loop that allows game to run
         for event in pygame.event.get(): 
@@ -159,6 +170,14 @@ def drawPressKeyMsg():
     pressKeyRect.topleft = (WINDOWWIDTH - 200, WINDOWHEIGHT - 30)
     DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
 
+def choose_colour():
+    for event in pygame.event.get():    
+        if event.type == K_y:
+            color = YELLOW
+            darkcolor = DARKYEL
+        if event.key == K_b:
+            color = LIGHTBLUE
+            darkcolor = BLUE
 
 def checkForKeyPress():
     if len(pygame.event.get(QUIT)) > 0:
@@ -173,9 +192,11 @@ def checkForKeyPress():
 
 
 def showStartScreen():
+    colorFont = pygame.font.Font('freesansbold.ttf', 10)
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
     titleSurf1 = titleFont.render('Wormy!', True, WHITE, DARKGREEN)
     titleSurf2 = titleFont.render('Wormy!', True, GREEN)
+    colorSurf = colorFont.render('Press y for yellow snake, b for blue snake, anything for green', True, WHITE)
 
     degrees1 = 0
     degrees2 = 0
@@ -185,12 +206,24 @@ def showStartScreen():
         rotatedRect1 = rotatedSurf1.get_rect()
         rotatedRect1.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
         DISPLAYSURF.blit(rotatedSurf1, rotatedRect1)
+        colorRect = colorSurf.get_rect()
+        
+        
 
         rotatedSurf2 = pygame.transform.rotate(titleSurf2, degrees2)
         rotatedRect2 = rotatedSurf2.get_rect()
         rotatedRect2.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
         DISPLAYSURF.blit(rotatedSurf2, rotatedRect2)
-
+        colorRect.midbottom = (WINDOWWIDTH / 2, 30)
+        DISPLAYSURF.blit(colorSurf, colorRect)  
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                if event.type == K_y:
+                    color = YELLOW
+                    darkcolor = DARKYEL
+                if event.type == K_b:
+                    color = LIGHTBLUE
+                    darkcolor = BLUE
         drawPressKeyMsg()
 
         if checkForKeyPress():
@@ -223,9 +256,9 @@ def showGameOverScreen(): #JK Defines function for game over screen when player 
     overRect = overSurf.get_rect() 
     #JK Assigns rect object with surface overSurf to overRect.
     gameRect.midtop = (WINDOWWIDTH / 2, 10) 
-    # JK Assigns size to the rect object gameRect.
+    # JK Assigns position to the rect object gameRect.
     overRect.midtop = (WINDOWWIDTH / 2, gameRect.height + 10 + 25) 
-    #JK Assigns size to rect object overRect.
+    #JK Assigns poisition to rect object overRect.
 
     DISPLAYSURF.blit(gameSurf, gameRect) 
     #JK Displays 'Game' on screen in white with freesansbold font using gameSurf and gameRect.
@@ -268,13 +301,13 @@ def drawWorm(wormCoords):
         #JK Multiplies the coord['y'] by the CELLSIZE to match worm's size to grid size.
         wormSegmentRect = pygame.Rect(x, y, CELLSIZE, CELLSIZE)
         #JK Creates rect object for the worm segment called wormSegmentRect.
-        pygame.draw.rect(DISPLAYSURF, DARKGREEN, wormSegmentRect)
+        pygame.draw.rect(DISPLAYSURF, darkcolor, wormSegmentRect)
         #JK Draws dark green rectangle on the segment where the worm is. This is going to be the outline of each cell of the worm.
         wormInnerSegmentRect = pygame.Rect(x + 4, y + 4, CELLSIZE - 8, CELLSIZE - 8)
         #JK Creates rect object for the smaller green rectangle which starts 4 pixels to the right and 4 pixels below
         # the topleft corner of the cell.
         
-        pygame.draw.rect(DISPLAYSURF, GREEN, wormInnerSegmentRect)
+        pygame.draw.rect(DISPLAYSURF, color, wormInnerSegmentRect)
         #JK Draws a smaller bright green rectangle over the dark green rectangle to make the worm look nicer.
 
 
