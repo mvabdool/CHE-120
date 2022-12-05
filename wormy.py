@@ -85,9 +85,13 @@ def runGame():
                   {'x': startx - 1, 'y': starty},
                   {'x': startx - 2, 'y': starty}]
     direction = RIGHT
+    score = 0
 
     # Start the apple in a random place.
     apple = getRandomLocation()
+    apple_5= getRandomLocation()
+    apple_10 = getRandomLocation()
+    apples = 1
 
     while True: # main game loop
     # MA Loop that allows game to run
@@ -124,9 +128,15 @@ def runGame():
                 return # game over
 
         # MA detecting when worm eats an apple 
-        if wormCoords[HEAD]['x'] == apple['x'] and wormCoords[HEAD]['y'] == apple['y']:
+        if (wormCoords[HEAD]['x'] == apple['x'] and wormCoords[HEAD]['y'] == apple['y']) or (wormCoords[HEAD]['x'] == apple_5['x'] and wormCoords[HEAD]['y'] == apple_5['y']) or  (wormCoords[HEAD]['x'] == apple_10['x'] and wormCoords[HEAD]['y'] == apple_10['y']) :
             # don't remove worm's tail segment
             apple = getRandomLocation() 
+            score+=1
+            if score > 10:
+                apple_5 = getRandomLocation()
+                apple_10 = getRandomLocation()
+            elif score > 5:
+                apple_5 = getRandomLocation()
             # MA set a new apple in a random location
         else:
             del wormCoords[-1] 
@@ -152,6 +162,10 @@ def runGame():
         drawWorm(wormCoords)
         # SV draws the worm onto the game screen
         drawApple(apple)
+        if score>10:
+            drawApple(apple_10)
+        if score>5:
+            drawApple(apple_5)
         # SV draws the apple onto the gamne screen
         drawScore(len(wormCoords) - 3)
         # SV draws the score onto the screen
