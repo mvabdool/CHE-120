@@ -157,6 +157,14 @@ def runGame():
             elif score > 5:
                 apple_5 = getRandomLocation()
                 #SV creates random location for second apples if score over 5
+        elif wormCoords[HEAD]['x'] == Freeze['x'] and wormCoords[HEAD]['y'] == Freeze['y']:
+            
+            del wormCoords[-2]
+            
+            del wormCoords[-1]
+            
+            del wormCoords[-1]
+            
         else:
             del wormCoords[-1] 
             # MA remove worm's tail segment 
@@ -164,16 +172,22 @@ def runGame():
 
         # MA move the worm by adding a body length unit in the direction it is moving
         # MA this doesn't cause the worm to grow longer because in if statements above, when the worm does not eat an apple it loses a unit of it's body from the back
-        if direction == UP:
-            newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] - 1}
-        elif direction == DOWN:
-            newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] + 1}
-        elif direction == LEFT:
-            newHead = {'x': wormCoords[HEAD]['x'] - 1, 'y': wormCoords[HEAD]['y']}
-        elif direction == RIGHT:
-            newHead = {'x': wormCoords[HEAD]['x'] + 1, 'y': wormCoords[HEAD]['y']}
-        wormCoords.insert(0, newHead)
+        if len(wormCoords) >= 1:
+        #MM As long as the length of the worm is greater than or equal to one the worm will be ale to move.
+            if direction == UP:
+                newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] - 1}
+            elif direction == DOWN:
+                newHead = {'x': wormCoords[HEAD]['x'], 'y': wormCoords[HEAD]['y'] + 1}
+            elif direction == LEFT:
+                newHead = {'x': wormCoords[HEAD]['x'] - 1, 'y': wormCoords[HEAD]['y']}
+            elif direction == RIGHT:
+                newHead = {'x': wormCoords[HEAD]['x'] + 1, 'y': wormCoords[HEAD]['y']}
+            wormCoords.insert(0, newHead)
         # MA head of worm is replaced at the beginning of the list 
+        else:
+        #MM if the length of the worm is less than one then the game will end
+            return # game over
+        # MA head of worm is replaced at the beginning of the list. 
         DISPLAYSURF.fill(BGCOLOR)
         # SV Fills screen with background colour
         drawGrid()
@@ -188,8 +202,14 @@ def runGame():
         if score>5:
             drawApple(apple_5)
             #draws new apple if score over 5
-        drawScore(len(wormCoords) - 3)
+                if (len(wormCoords) - 3) <= 0:
+            drawScore(0)
+        #MM if the worm's length is less than 2 then the score will not be negative, instead it will remain at 0. 
+        else:
+            drawScore(len(wormCoords) - 3)
+        #MM if the worms score is greater than 0 then it will calculate score as normal
         # SV draws the score onto the screen
+        
         pygame.display.update()
         # SV updates the screen to show all of the drawn objects
         FPSCLOCK.tick(FPS)
@@ -352,7 +372,18 @@ def drawWorm(wormCoords):
         pygame.draw.rect(DISPLAYSURF, color, wormInnerSegmentRect)
         #JK Draws a smaller bright green rectangle over the dark green rectangle to make the worm look nicer.
 
-
+def drawFreeze(coord):
+    #MM Defines function for drawing Frozen apple on screen.
+    x = coord['x'] * CELLSIZE
+    #MM Multiples coord['x'] by CELLSIZE to match the size of the frozen apple to the grid.
+    y = coord['y'] * CELLSIZE
+    #MM Multiples coord['y'] by CELLSIZE to match the size of the apple to the grid.
+    FreezeRect = pygame.Rect(x, y, CELLSIZE, CELLSIZE)
+    #MM Creates rect object for frozen apple with size matching grid.
+    pygame.draw.rect(DISPLAYSURF, LIGHTBLUE, FreezeRect)
+    #JK Passes FreezeRect to pygame.draw.rect() function where an  frozen apple gets drawn in blue
+    
+    
 def drawApple(coord):
     #JK Defines function for drawing apple on screen.
     x = coord['x'] * CELLSIZE
