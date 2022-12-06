@@ -152,15 +152,15 @@ def runGame():
             # MA set a new apple in a random location
             score+=1
             #SV adds one to score variable each time an apple is eaten
-            if score > 10:
+            if score >= 10:
                 apple_5 = getRandomLocation()
                 apple_10 = getRandomLocation()
                 #SV creates random locations for second and third apple if score over 10
-            elif score > 5:
+            elif score >= 5:
                 apple_5 = getRandomLocation()
                 #SV creates random location for second apples if score over 5
         elif wormCoords[HEAD]['x'] == Freeze['x'] and wormCoords[HEAD]['y'] == Freeze['y']:
-
+            score -=1
             del wormCoords[-1]
             del wormCoords[-1]
             
@@ -197,10 +197,10 @@ def runGame():
         # SV draws the apple onto the gamne screen
         drawFreeze(Freeze)
         #MM this draws the frozen apple onto the screen.
-        if score>10:
+        if score>=10:
             drawApple(apple_10)
             #draws new apple if score over 10
-        if score>5:
+        if score>=5:
             drawApple(apple_5)
             #draws new apple if score over 5
                 
