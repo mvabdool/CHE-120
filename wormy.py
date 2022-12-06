@@ -67,14 +67,14 @@ RIGHT = 'right'
 
 HEAD = 0 # syntactic sugar: index of the worm's head
 
-# CHANGE CHANGE CHANGE 
+#MM This controls the head and defines it to be later used in the body
 
 def main():
-    #This function is the first one of the project this allows us to import it as a module without the entire code running. 
+    # MM This function is the first one of the project this allows us to import it as a module without the entire code running. 
     global FPSCLOCK, DISPLAYSURF, BASICFONT
 
     pygame.init()
-    # Initalizes pygame
+    #MM Initalizes pygame
     FPSCLOCK = pygame.time.Clock()
     #MM This initalizes the clock within the code and helps creates the frames per second.
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
