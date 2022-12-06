@@ -202,7 +202,8 @@ def runGame():
         if score>5:
             drawApple(apple_5)
             #draws new apple if score over 5
-                if (len(wormCoords) - 3) <= 0:
+                
+        if (len(wormCoords) - 3) <= 0:
             drawScore(0)
         #MM if the worm's length is less than 2 then the score will not be negative, instead it will remain at 0. 
         else:
