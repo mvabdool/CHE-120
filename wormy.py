@@ -196,6 +196,8 @@ def runGame():
         # SV draws the worm onto the game screen
         drawApple(apple)
         # SV draws the apple onto the gamne screen
+        drawFreeze(Freeze)
+        #MM this draws the frozen apple onto the screen.
         if score>10:
             drawApple(apple_10)
             #draws new apple if score over 10
