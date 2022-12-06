@@ -19,10 +19,10 @@ from pygame.locals import *
 #from pygame import mixer
 
 #JK added background music
-#mixer.init()
-#mixer.music.load('worm life theme song.mp3')
-#mixer.music.set_volume(1)
-#mixer.music.play(-1)
+mixer.init()
+mixer.music.load('worm life theme song.mp3')
+mixer.music.set_volume(1)
+mixer.music.play(-1)
 
 FPS = 15
 #MM This is the frames per second of the game and how fast it runs. 
