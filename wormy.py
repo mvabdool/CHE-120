@@ -16,7 +16,7 @@ Created on Wed Nov  9 19:02:09 2022
 
 import random, pygame, sys
 from pygame.locals import *
-#from pygame import mixer
+from pygame import mixer
 
 #JK added background music
 mixer.init()
@@ -67,21 +67,21 @@ RIGHT = 'right'
 
 HEAD = 0 # syntactic sugar: index of the worm's head
 
-#MM This controls the head and defines it to be later used in the body
+# CHANGE CHANGE CHANGE 
 
 def main():
-    # MM This function is the first one of the project this allows us to import it as a module without the entire code running. 
+    #This function is the first one of the project this allows us to import it as a module without the entire code running. 
     global FPSCLOCK, DISPLAYSURF, BASICFONT
 
     pygame.init()
-    #MM Initalizes pygame
+    # Initalizes pygame
     FPSCLOCK = pygame.time.Clock()
     #MM This initalizes the clock within the code and helps creates the frames per second.
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
     #MM This is setting up the display of the screen ie using pygame to define what we set the window width and height to be previously
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
     #MM This is defining what font the title will be in and also the size of the text
-    pygame.display.set_caption('Wormy')
+    pygame.display.set_caption('WormPy 2k23')
     #MM Our title is set!
 
     showStartScreen()
@@ -251,8 +251,8 @@ def checkForKeyPress():
 def showStartScreen():
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
     # SV creates the font for the title on the start screen using the Font() method
-    titleSurf1 = titleFont.render('Wormy!', True, WHITE, DARKGREEN)
-    titleSurf2 = titleFont.render('Wormy!', True, GREEN)
+    titleSurf1 = titleFont.render('WormPy!', True, WHITE, DARKGREEN)
+    titleSurf2 = titleFont.render('2k23!', True, GREEN)
     # SV creates 2 different titles that display the text "Wormy!" with each one having a different colour using the render() method
 
     degrees1 = 0
