@@ -108,7 +108,7 @@ def runGame():
     apple_5= getRandomLocation()
     apple_10 = getRandomLocation()
     #SV creates random location for the 3 possible apples
-    Freeze = getRandomlocation()
+    Freeze = getRandomLocation()
     #MM Creates a random location for the blue frozen apple
     
     while True: # main game loop
