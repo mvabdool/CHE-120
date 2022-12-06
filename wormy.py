@@ -16,6 +16,13 @@ Created on Wed Nov  9 19:02:09 2022
 
 import random, pygame, sys
 from pygame.locals import *
+from pygame import mixer
+
+#JK added background music
+mixer.init()
+mixer.music.load('Hotline Bling - Drake low quality.mp3')
+mixer.music.set_volume(1)
+mixer.music.play()
 
 FPS = 15
 #MM This is the frames per second of the game and how fast it runs. 
@@ -41,6 +48,14 @@ GREEN     = (  0, 255,   0)
 DARKGREEN = (  0, 155,   0)
 DARKGRAY  = ( 40,  40,  40)
 LIGHTBLUE = ( 135,206, 250)
+DARKRED   = ( 155,  0,   0)
+ORANGE    = ( 155, 69,   0)
+LORANGE   = ( 255, 140,  0)
+DARKYEL   = ( 138, 129,  0)
+YELLOW    = (255, 255,   0)
+LIGHTRED =  (255, 114, 118)
+
+
 BGCOLOR = BLACK
 # These are the colours which will be used within the game. They are initalized at the begining of the code.
 
@@ -299,19 +314,22 @@ def drawWorm(wormCoords):
     for coord in wormCoords:
         #JK loops through each of the dictionary values in wormCoords which all have an 'x' key and 'y' key.
         #This is so when the worm grows, the drawing of the worm updates to match it's growth.
+        color_list = [(YELLOW, DARKYEL), (LIGHTORANGE, ORANGE), (LIGHTRED, DARKRED)]
+        (color, darkcolor) = random.choice(color_list)
+        #JK added changing color worm
         x = coord['x'] * CELLSIZE
         #JK Multiplies the coord['x'] coordinate by CELLSIZE to match worm's size to grid size.
         y = coord['y'] * CELLSIZE
         #JK Multiplies the coord['y'] by the CELLSIZE to match worm's size to grid size.
         wormSegmentRect = pygame.Rect(x, y, CELLSIZE, CELLSIZE)
         #JK Creates rect object for the worm segment called wormSegmentRect.
-        pygame.draw.rect(DISPLAYSURF, DARKGREEN, wormSegmentRect)
+        pygame.draw.rect(DISPLAYSURF, darkcolor, wormSegmentRect)
         #JK Draws dark green rectangle on the segment where the worm is. This is going to be the outline of each cell of the worm.
         wormInnerSegmentRect = pygame.Rect(x + 4, y + 4, CELLSIZE - 8, CELLSIZE - 8)
         #JK Creates rect object for the smaller green rectangle which starts 4 pixels to the right and 4 pixels below
         # the topleft corner of the cell.
         
-        pygame.draw.rect(DISPLAYSURF, GREEN, wormInnerSegmentRect)
+        pygame.draw.rect(DISPLAYSURF, color, wormInnerSegmentRect)
         #JK Draws a smaller bright green rectangle over the dark green rectangle to make the worm look nicer.
 
 
