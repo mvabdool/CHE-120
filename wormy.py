@@ -22,7 +22,7 @@ from pygame import mixer
 mixer.init()
 mixer.music.load('worm life theme song.mp3')
 mixer.music.set_volume(1)
-mixer.music.play()
+mixer.music.play(-1)
 
 FPS = 15
 #MM This is the frames per second of the game and how fast it runs. 
