@@ -108,7 +108,9 @@ def runGame():
     apple_5= getRandomLocation()
     apple_10 = getRandomLocation()
     #SV creates random location for the 3 possible apples
-
+    Freeze = getRandomlocation()
+    #MM Creates a random location for the blue frozen apple
+    
     while True: # main game loop
     # MA Loop that allows game to run
         for event in pygame.event.get(): 
