@@ -16,7 +16,7 @@ Created on Wed Nov  9 19:02:09 2022
 
 import random, pygame, sys
 from pygame.locals import *
-from pygame import mixer
+#from pygame import mixer
 
 #JK added background music
 mixer.init()
@@ -160,11 +160,8 @@ def runGame():
                 apple_5 = getRandomLocation()
                 #SV creates random location for second apples if score over 5
         elif wormCoords[HEAD]['x'] == Freeze['x'] and wormCoords[HEAD]['y'] == Freeze['y']:
-            
-            del wormCoords[-2]
-            
+
             del wormCoords[-1]
-            
             del wormCoords[-1]
             
         else:
