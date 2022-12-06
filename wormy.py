@@ -20,7 +20,7 @@ from pygame import mixer
 
 #JK added background music
 mixer.init()
-mixer.music.load('worm life theme song.mp3')
+mixer.music.load('wormpy theme song.mp3')
 mixer.music.set_volume(1)
 mixer.music.play(-1)
 
