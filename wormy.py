@@ -314,7 +314,7 @@ def drawWorm(wormCoords):
     for coord in wormCoords:
         #JK loops through each of the dictionary values in wormCoords which all have an 'x' key and 'y' key.
         #This is so when the worm grows, the drawing of the worm updates to match it's growth.
-        color_list = [(YELLOW, DARKYEL), (LIGHTORANGE, ORANGE), (LIGHTRED, DARKRED)]
+        color_list = [(YELLOW, DARKYEL), (LORANGE, ORANGE), (LIGHTRED, DARKRED)]
         (color, darkcolor) = random.choice(color_list)
         #JK added changing color worm
         x = coord['x'] * CELLSIZE
